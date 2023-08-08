@@ -1,8 +1,7 @@
 package com.example.demo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,21 +9,46 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "Cars")
+@Table(name = "cars")
 public class Car {
     
     // properties
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( name = "car_id")
     @JsonProperty
     @NotEmpty
     public String car_id;
 
+    @Column(name = "make")
     @JsonProperty
-    @NotEmpty
-    public String make, model;
+    public String make;
     
+    @Column(name = "model")
     @JsonProperty
-    public String color, year, imgurl, powerwindows, powerlocks, backupcamera;
+    public String model;
+    
+    @Column(name = "color")
+    @JsonProperty
+    public String color;
+
+    @Column(name = "year")
+    @JsonProperty
+    public String year;
+
+    @Column(name = "imgurl")
+    @JsonProperty
+    public String imgurl;
+    
+    @Column(name = "powerwindows")
+    @JsonProperty
+    public String powerwindows;
+    
+    @Column(name = "powerlocks")
+    @JsonProperty
+    public String powerlocks;
+    
+    @Column(name = "backupcamera")
+    @JsonProperty
+    public String backupcamera;
 
     // empty constructor
     public Car() {
