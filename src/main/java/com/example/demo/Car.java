@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,6 +11,7 @@ import jakarta.validation.constraints.NotEmpty;
 public class Car {
     
     // properties
+    @Id
     @Column( name = "car_id")
     @JsonProperty
     @NotEmpty
@@ -52,6 +51,13 @@ public class Car {
 
     // empty constructor
     public Car() {
+    }
+
+    // jon todo: update comment
+    public Car(String car_id, String make, String model) {
+        this.car_id = car_id;
+        this.make = make;
+        this.model = model;
     }
 
     // getters and setters

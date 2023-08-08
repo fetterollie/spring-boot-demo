@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -9,6 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class DemoApplicationTests {
@@ -35,7 +39,36 @@ public class DemoApplicationTests {
 		}
 	}
 
-	// @AfterEach
+	@AfterEach
+	protected void tearDown() throws Exception {
+		if ( sessionFactory != null ) {
+			sessionFactory.close();
+		}
+	}
 
+	@SuppressWarnings("unchecked")
+    @Test
+    public void testBasicUsage() {
+	   // create a couple of events...
+	   Session session = sessionFactory.openSession();
+	   session.beginTransaction();
+	   session.remove(new Car("54", "honda", "accord"));
+	   session.getTransaction().commit();
+	   session.close();
+
+	   session = sessionFactory.openSession();
+	   session.beginTransaction();
+	   List<Car> result = session.createQuery( "select c from Car c" , Car.class).list();
+	   for ( Car car : result) {
+		  System.out.println( "Car (" + car.getCar_id() + ") : " + car.getMake() );
+	   }
+	   session.getTransaction().commit();
+	   session.close();
+    }
+
+	@Test
+    public void marco_is_in_the_house() {
+	   assertThat(1).isGreaterThanOrEqualTo(0);
+    }
 }
 
