@@ -39,7 +39,7 @@ public class CarController {
     public ResponseEntity<Car> getCarById(@PathVariable(value = "id") Long carId)
         throws ResourceNotFoundException {
             Car car = carRepository.findById(carId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + carId));
+                .orElseThrow(() -> new ResourceNotFoundException("Car record not found for this id :: " + carId));
             return ResponseEntity.ok().body(car);
         }
 
@@ -55,11 +55,16 @@ public class CarController {
     public ResponseEntity<Car> updateCar(@PathVariable(value = "id") Long carId, @Valid @RequestBody Car carDetails) throws ResourceNotFoundException{
 
         Car car = carRepository.findById(carId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + carId));
+                .orElseThrow(() -> new ResourceNotFoundException("Car record not found for this id :: " + carId));
 
         car.setMake(carDetails.getMake());
         car.setModel(carDetails.getModel());
         car.setYear(carDetails.getYear());
+        car.setColor(carDetails.getColor());
+        car.setImgurl(carDetails.getImgurl());
+        car.setPowerwindows(carDetails.getPowerwindows());
+        car.setPowerlocks(carDetails.getPowerlocks());
+        car.setBackupcamera(carDetails.getBackupcamera());
 
         return ResponseEntity.ok(this.carRepository.save(car));
     }
@@ -69,7 +74,7 @@ public class CarController {
     public Map<String, Boolean> deleteCar(@PathVariable(value = "id") Long carId) throws ResourceNotFoundException{
 
         Car car = carRepository.findById(carId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + carId));
+                .orElseThrow(() -> new ResourceNotFoundException("Car record not found for this id :: " + carId));
 
         this.carRepository.delete(car);
 
