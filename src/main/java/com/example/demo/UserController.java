@@ -76,6 +76,15 @@ public class UserController {
         response.put("delete", Boolean.TRUE);
 
         return response;
-
     }
+
+    // attempt at login user REST
+    // @PostMapping("users/login/{username}/{password}")
+    // public ResponseEntity<User> 
+    //     getUserById(@PathVariable(value = "username") String username)
+    //         throws ResourceNotFoundException {
+    //             User user = userRepository.findById(username)
+    //                 .orElseThrow(() -> new ResourceNotFoundException("User record not found for this id :: " + userId));
+    //             return ResponseEntity.ok().body(user);
+    // }
 }
